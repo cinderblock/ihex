@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/cinderblock/ihex/issues"
   },
-  "homepage": "https://github.com/cinderblock/ihex#readme"
+  "homepage": "https://github.com/cinderblock/ihex#readme",
+  "dependencies": {
+    "line-reader": "^0.2.4"
+  }
 }
