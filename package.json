@@ -1,0 +1,23 @@
+{
+  "name": "ihex",
+  "version": "0.0.0",
+  "description": "A JS tool for reading ihex format files",
+  "main": "ihex.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cinderblock/ihex.git"
+  },
+  "keywords": [
+    "binary",
+    "ihex"
+  ],
+  "author": "Cameron Tacklind <cameron@tacklind.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cinderblock/ihex/issues"
+  },
+  "homepage": "https://github.com/cinderblock/ihex#readme"
+}
