@@ -24,11 +24,7 @@ jobs:
       - run: npm install -g npm@latest
       - run: npm ci
       - run: npm test
-      - name: Show OIDC env presence (values masked)
-        run: |
-          echo "GITHUB_ACTIONS=$GITHUB_ACTIONS"
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL set: $([[ -n $ACTIONS_ID_TOKEN_REQUEST_URL ]] && echo yes || echo no)"
-          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN set: $([[ -n $ACTIONS_ID_TOKEN_REQUEST_TOKEN ]] && echo yes || echo no)"
       # Auth is via npm Trusted Publishing (OIDC). Configure on npmjs.com:
-      # https://www.npmjs.com/package/ihex/access → "Publishing access" → add this repo + workflow.
-      - run: npm publish --provenance --access public --loglevel=verbose
+      # https://www.npmjs.com/package/ihex/access → "Trusted Publisher" → add
+      # GitHub Actions / cinderblock / ihex / publish.yml / (no environment).
+      - run: npm publish --provenance --access public
