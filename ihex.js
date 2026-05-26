@@ -1,8 +1,6 @@
 
 var lineReader = require('line-reader');
 
-
-
 module.exports = function(filename, buffer, callback) {
  this.lineNumber = 0;
  var self = this;
@@ -42,5 +40,12 @@ module.exports = function(filename, buffer, callback) {
 
  }
 
- lineReader.eachLine(filename, this.parseLine).then(callback);
+ var ret = lineReader.eachLine(filename, this.parseLine)
+
+ // Callback is optional
+ if (callback)
+  ret.then(callback);
+
+ // Return line-reader's promise
+ return ret;
 }
