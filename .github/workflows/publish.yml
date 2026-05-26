@@ -1,0 +1,25 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      # Auth is via npm Trusted Publishing (OIDC). Configure on npmjs.com:
+      # https://www.npmjs.com/package/ihex/access → "Publishing access" → add this repo + workflow.
+      - run: npm publish --provenance --access public

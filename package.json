@@ -1,18 +1,44 @@
 {
   "name": "ihex",
-  "version": "0.3.0",
-  "description": "A JS tool for reading ihex format files",
-  "main": "ihex.js",
+  "version": "1.0.0",
+  "description": "Parse Intel HEX files and load them into a Buffer. Zero runtime dependencies, ESM, TypeScript types.",
+  "type": "module",
+  "main": "dist/ihex.js",
+  "types": "dist/ihex.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/ihex.d.ts",
+      "default": "./dist/ihex.js"
+    }
+  },
+  "files": [
+    "dist/ihex.js",
+    "dist/ihex.js.map",
+    "dist/ihex.d.ts",
+    "dist/ihex.d.ts.map"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "npm run build && node --test dist/ihex.test.js",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cinderblock/ihex.git"
   },
   "keywords": [
+    "intel-hex",
+    "ihex",
+    "hex",
     "binary",
-    "ihex"
+    "firmware",
+    "avr",
+    "parser",
+    "embedded"
   ],
   "author": "Cameron Tacklind <cameron@tacklind.com>",
   "license": "ISC",
@@ -20,7 +46,8 @@
     "url": "https://github.com/cinderblock/ihex/issues"
   },
   "homepage": "https://github.com/cinderblock/ihex#readme",
-  "dependencies": {
-    "line-reader": "^0.2.4"
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
   }
 }
