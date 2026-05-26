@@ -17,18 +17,13 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
           cache: npm
-      # npm Trusted Publishing needs npm CLI 11.5.1+ for the OIDC→registry-token exchange.
-      # Node 22 LTS ships with npm 10.x, so upgrade explicitly.
+      # npm Trusted Publishing needs npm CLI 11.5.1+. Node 22 ships with 10.x.
+      # Also: do NOT pass registry-url to setup-node — it writes an .npmrc that
+      # configures a placeholder authToken, which blocks npm's OIDC exchange.
       - run: npm install -g npm@latest
       - run: npm ci
       - run: npm test
-      # setup-node writes `_authToken=${NODE_AUTH_TOKEN}` to the runner .npmrc.
-      # With trusted publishing (no NODE_AUTH_TOKEN secret), that token literal
-      # expands to empty and prevents npm from falling through to OIDC. Strip it.
-      - name: Strip placeholder authToken from .npmrc (allow OIDC trusted publishing)
-        run: echo "registry=https://registry.npmjs.org/" > "$NPM_CONFIG_USERCONFIG"
       # Auth is via npm Trusted Publishing (OIDC). Configure on npmjs.com:
       # https://www.npmjs.com/package/ihex/access → "Publishing access" → add this repo + workflow.
       - run: npm publish --provenance --access public
