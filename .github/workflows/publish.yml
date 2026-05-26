@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -21,6 +22,16 @@ jobs:
       # npm Trusted Publishing needs npm CLI 11.5.1+ for the OIDC→registry-token exchange.
       # Node 22 LTS ships with npm 10.x, so upgrade explicitly.
       - run: npm install -g npm@latest
+      - name: Diagnostic — npm/Node versions, .npmrc state
+        run: |
+          echo "node: $(node --version)"
+          echo "npm:  $(npm --version)"
+          echo "--- project .npmrc ---"
+          (cat .npmrc 2>/dev/null && echo "(end)") || echo "(no project .npmrc)"
+          echo "--- runner _temp .npmrc (NPM_CONFIG_USERCONFIG) ---"
+          (cat "$NPM_CONFIG_USERCONFIG" 2>/dev/null && echo "(end)") || echo "(no userconfig .npmrc)"
+          echo "--- npm config list (publicly safe values) ---"
+          npm config list || true
       - run: npm ci
       - run: npm test
       # Auth is via npm Trusted Publishing (OIDC). Configure on npmjs.com:
