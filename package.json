@@ -1,6 +1,6 @@
 {
   "name": "ihex",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Parse Intel HEX files and load them into a Buffer. Zero runtime dependencies, ESM, TypeScript types.",
   "type": "module",
   "main": "dist/ihex.js",
